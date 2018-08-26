@@ -22,9 +22,12 @@ def wiki_entity(filename):
             if line.startswith("ENTITY/"):
                 line = line.replace("ENTITY/"," ").strip()
                 if len(line)!=0:
-                    word = line.split(',')[0]
-                    word = word.replace('-',' ').lower()
-                    vec = line.split(',')[1]
+                    word = line.split(' ')[0]
+
+                    vec = [float(x) for x in line.split(' ')[1:]]
+
+                    word = word.replace('_',' ').lower()
+
                     entity2vec[word] = vec
     return  entity2vec
             # vec  = line.split(' ')[1:]
