@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
     entity_totally_match = all_entity & entity_in_wiki      # entity totally matched in wiki
 
-    with open("num_entity_distance.txt", "w") as f:         # add totally matched entity to file
+    with open("enwiki_match.txt", "w") as f:         # add totally matched entity to file
         for entity in entity_totally_match:
             num = entity2vec[entity]
             f.write("{},,,{},,,{},,,Total_Match\n".format(entity, entity, num))
