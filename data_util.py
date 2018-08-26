@@ -16,15 +16,17 @@ def read_file(filename , search_word):
     print(search_word, indicate)
     return indicate
 def wiki_entity(filename):
-    num2entity = {}
+    entity2vec = {}
     with open(filename) as f:
         for line in f:
-            line = line.strip()
-            if len(line)!=0:
-                word = line.split(',')[1]
-                entity_num = line.split(',')[0].split(':')[-1]
-                num2entity[entity_num] = word.lower()
-    return  num2entity
+            if line.startswith("ENTITY/"):
+                line = line.replace("ENTITY/"," ").strip()
+                if len(line)!=0:
+                    word = line.split(',')[0]
+                    word = word.replace('-',' ').lower()
+                    vec = line.split(',')[1]
+                    entity2vec[word] = vec
+    return  entity2vec
             # vec  = line.split(' ')[1:]
             # if search_word in word:
             #     print(line)
