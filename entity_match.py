@@ -22,7 +22,7 @@ if __name__ == '__main__':
     all_entity += entity_in_dataset(all_words, all_tags)
 
     all_entity = set(all_entity)                        # all entity in datasets
-    entity2vec = wiki_entity("data/enwiki_20180420_300d.txt")       # all entity_wiki {index_num:word}
+    entity2vec = wiki_entity("data/enwiki_20180420_nolg_300d.txt")       # all entity_wiki {index_num:word}
 
 
     entity_in_wiki = set(entity2vec)           # entity in wiki
@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
     entity_totally_match = all_entity & entity_in_wiki      # entity totally matched in wiki
 
-    with open("enwiki_match.txt", "w") as f:         # add totally matched entity to file
+    with open("enwiki_match_nolg.txt", "w") as f:         # add totally matched entity to file
         for entity in entity_totally_match:
             num = entity2vec[entity]
             f.write("{},,,{},,,{},,,Total_Match\n".format(entity, entity, num))
