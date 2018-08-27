@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
     for entity_to_be_match in (all_entity - entity_totally_match):
         candidates = []
-        with open("enwiki_match.txt", "a") as f:
+        with open("enwiki_match_nolg.txt", "a") as f:
             for long_entity in entity_totally_match:
                 if partof(entity_to_be_match, long_entity):
                     candidates.append(long_entity)
