@@ -21,7 +21,7 @@ if __name__ == '__main__':
     all_words, all_tags = file2list("valid.txt")
     all_entity += entity_in_dataset(all_words, all_tags)
 
-    all_entity = set(all_entity)                        # all entity in datasets
+    all_entity = set([i.title() for i in all_entity])                        # all entity in datasets
     entity2vec = wiki_entity("data/enwiki_20180420_300d.txt")       # all entity_wiki {index_num:word}
 
 
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     with open("enwiki_match.txt", "w") as f:         # add totally matched entity to file
         for entity in entity_totally_match:
             num = entity2vec[entity]
-            f.write("{},,,{},,,{},,,Total_Match\n".format(entity, entity, num))
+            f.write("{},,,{},,,{},,,Total_Match\n".format(entity.lower(), entity, num))
 
     Levenshtein_tree = pybktree.BKTree(distance, entity_in_wiki)
     print("Levenshtein_bktree Done")
@@ -62,14 +62,14 @@ if __name__ == '__main__':
             if len(candidates)!=0:
                 entity_matched = process.extractOne(entity_to_be_match, candidates)
                 num = entity2vec[entity_matched[0]]
-                f.write("{},,,{},,,{},,,Abbreviation\n".format(entity_to_be_match, entity_matched, num))
+                f.write("{},,,{},,,{},,,Abbreviation\n".format(entity_to_be_match.lower(), entity_matched, num))
             else:
                 bktree_candidates = Levenshtein_tree.find(entity_to_be_match, 2)
                 candidates = [candidate for (_, candidate) in bktree_candidates]
                 if len(candidates)!=0:
                     entity_matched = process.extractOne(entity_to_be_match, candidates)
                     num = entity2vec[entity_matched[0]]
-                    f.write("{},,,{},,,{},,,Appropriate_Match\n".format(entity_to_be_match, entity_matched, num))
+                    f.write("{},,,{},,,{},,,Appropriate_Match\n".format(entity_to_be_match.lower(), entity_matched, num))
                 else:
                     # f.write("{},,,UNK,,,UNK,,,None\n".format(entity_to_be_match))
                     for word in re.split(' |-',entity_to_be_match):
@@ -81,9 +81,9 @@ if __name__ == '__main__':
                         entity_matched = process.extractOne(entity_to_be_match.replace('-',' '), set(candidates),
                                                             scorer=fuzz.token_sort_ratio)
                         num = entity2vec[entity_matched[0]]
-                        f.write("{},,,{},,,{},,,Part_Match\n".format(entity_to_be_match, entity_matched, num))
+                        f.write("{},,,{},,,{},,,Part_Match\n".format(entity_to_be_match.lower(), entity_matched, num))
                     else:
-                        f.write("{},,,UNK,,,UNK,,,None\n".format(entity_to_be_match))
+                        f.write("{},,,UNK,,,UNK,,,None\n".format(entity_to_be_match.lower()))
 
         i += 1
         print(i)

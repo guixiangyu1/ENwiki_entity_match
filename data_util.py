@@ -26,7 +26,7 @@ def wiki_entity(filename):
 
                     vec = [float(x) for x in line.split(' ')[1:]]
 
-                    word = word.replace('_',' ').lower()
+                    word = word.replace('_',' ').title()
 
                     entity2vec[word] = vec
     return  entity2vec
