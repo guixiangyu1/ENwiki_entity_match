@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
     entity_totally_match = all_entity & entity_in_wiki      # entity totally matched in wiki
 
-    with open("enwiki_match_nolg.txt", "w") as f:         # add totally matched entity to file
+    with open("enwiki_match.txt", "w") as f:         # add totally matched entity to file
         for entity in entity_totally_match:
             num = entity2vec[entity]
             f.write("{},,,{},,,{},,,Total_Match\n".format(entity, entity, num))
@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
     for entity_to_be_match in (all_entity - entity_totally_match):
         candidates = []
-        with open("enwiki_match_nolg.txt", "a") as f:
+        with open("enwiki_match.txt", "a") as f:
             for long_entity in entity_totally_match:
                 if partof(entity_to_be_match, long_entity):
                     candidates.append(long_entity)
