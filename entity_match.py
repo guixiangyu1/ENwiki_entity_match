@@ -12,17 +12,17 @@ if __name__ == '__main__':
     word2wiki_entity = {}
     all_entity = []
 
-    all_words, all_tags = file2list("test.txt")
+    all_words, all_tags = file2list("data/test.txt")
     all_entity += entity_in_dataset(all_words, all_tags)
 
-    all_words, all_tags = file2list("train.txt")
+    all_words, all_tags = file2list("data/train.txt")
     all_entity += entity_in_dataset(all_words, all_tags)
 
-    all_words, all_tags = file2list("valid.txt")
+    all_words, all_tags = file2list("data/valid.txt")
     all_entity += entity_in_dataset(all_words, all_tags)
 
     all_entity = set([i.title() for i in all_entity])                        # all entity in datasets
-    entity2vec = wiki_entity("data/enwiki_20180420_300d.txt")       # all entity_wiki {index_num:word}
+    entity2vec = wiki_entity("data/eswiki_20180420_300d.txt")       # all entity_wiki {index_num:word}
 
 
     entity_in_wiki = set(entity2vec)           # entity in wiki
